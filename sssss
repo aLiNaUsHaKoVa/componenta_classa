@@ -1,0 +1,61 @@
+#pragma once
+#include <iostream>
+using namespase std;
+
+class Group
+{
+public:
+	Group() {};
+	Group(string nameGroup, map<std::string, GradeBook> Gradebooks) {
+		this->nameGroup_ = nameGroup;
+		this->Gradebooks_ = Gradebooks;
+	};
+
+	Group(string nameGroup, vector<std::string> fio, vector<std::string> nameExams, vector<std::vector<int>> resultExam) {
+		this->nameGroup_ = nameGroup;
+		this->nameExams_ = nameExams;
+		for (size_t i = 0; i < fio.size(); i++)
+		{
+			Gradebooks_.insert(make_pair(fio[i], GradeBook(nameExams_, resultExam[i])));
+		}
+	}
+	~Group() {
+
+	}
+
+	void deleteGradeBook(string fio) {
+		Gradebooks_.erase(Gradebooks_.find(fio));
+	}
+
+	void addGradeBook(string fio, std::vector<int> resultExam) {
+		Gradebooks_.insert(std::make_pair(fio, GradeBook(nameExams_, resultExam)));
+	}
+
+	void addGradeBook(string fio) {
+		Gradebooks_.insert(make_pair(fio, GradeBook()));
+	}
+
+	void operator+(Group& G) {
+		for (auto it = G.Gradebooks_.begin(); it != G.Gradebooks_.end(); ++it)
+			this->Gradebooks_.insert(make_pair(it->first, it->second));
+	}
+
+	void operator-(Group& G) {
+		for (auto it = G.Gradebooks_.begin(); it != G.Gradebooks_.end(); ++it)
+			this->Gradebooks_.erase(it->first);
+	}
+
+	GradeBook& getGradeBook(string key) {
+		return Gradebooks_[key];
+	}
+
+private:
+	static map<int,std::string> plane;
+
+	string nameGroup_;
+  vector<string> nameExams_;
+	//fio, GradeBook
+	map<std::string, GradeBook> Gradebooks_;
+};
+
+auto Group::plane = Exam.getSbjPlane();
