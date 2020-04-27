@@ -60,3 +60,4 @@ private:
 };
 
 auto Group::plane = Exam.getSbjPlane();
+
