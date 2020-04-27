@@ -20,3 +20,4 @@ private:
 	//nameExam resultExam
 	map<string, int> exam_;
 };
+
